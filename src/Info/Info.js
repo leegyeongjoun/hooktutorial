@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useInput from '../useInput/useInput';
 
 const Info = () => {
-    const [name, setName] = useState('');
-    const [nickname, setNickname] = useState('');
-    useEffect(()=>{
-        console.log('effect');
-        console.log(name);
-        return () => {
-            console.log('cleanup');
-            console.log(name);
-        }
-    },[])
-    const onChangeName = e =>{
-        setName(e.target.value);
-    };
-    const onChnageNickname = e=>{
-        setNickname(e.target.value);
-    }
-    return (
+const [state, onChange] = useInput({
+    name:'',
+    nickname:''
+});
+const {name, nickname} = state;
+
+return(
+    <div>
+        <div>
+            <input name="name" value={name} onChange={onChange}/>
+            <input name="nickname" value={nickname} onChange={onChange}/>
+        </div>
         <div>
             <div>
-                <input value={name} onChange={onChangeName} type="text" />
-                <input value={nickname} onChange={onChnageNickname} type="text" />
+                <b>이름:</b>{name}
             </div>
             <div>
-                <div>
-                    <b>이름:</b>{name}
-                </div>
-                <div>
-                    <b>닉네임:</b>{nickname}
-                </div>
+                <b>닉네임: </b>
+                {nickname}
             </div>
         </div>
-    
+    </div>
     );
 };
-
 export default Info;
